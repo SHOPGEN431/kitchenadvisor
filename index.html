@@ -620,13 +620,15 @@
       if (!link) return;
       const href = link.getAttribute('href');
       if (href && (href.startsWith('http://') || href.startsWith('https://')) && !href.includes(window.location.hostname)) {
+        var payoutValue = href.includes('gu-ecom.com') ? 0.50 : 0.07;
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
           'event': 'affiliate_click',
           'click_url': href,
           'click_text': link.textContent.trim(),
           'click_location': link.closest('section, article, div.exit-modal')?.id || link.closest('section, article, div.exit-modal')?.className || 'unknown',
-          'page_url': window.location.href
+          'page_url': window.location.href,
+          'affiliate_payout_value': payoutValue
         });
       }
     });
