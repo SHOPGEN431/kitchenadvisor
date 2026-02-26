@@ -160,6 +160,32 @@
     </article>
   </main>
 
+  <!-- ===== EXIT INTENT (Article) ===== -->
+  <div class="exit-overlay" id="exitOverlay">
+    <div class="exit-modal exit-modal--compact">
+      <button class="exit-close" id="exitClose" aria-label="Close">&times;</button>
+      <div class="exit-modal__inner">
+        <div class="exit-modal__badge">⭐ Our #1 Recommendation</div>
+        <h2 class="exit-modal__title">Looking for the Safest Cutting Board?</h2>
+        <p class="exit-modal__subtitle">Our editorial team tested dozens of boards — this is the one we recommend above all others.</p>
+        <div class="exit-product">
+          <img src="https://consumer-champion.org/wp-content/uploads/2026/02/1st.jpeg" alt="TIBO Titanium Cutting Board" class="exit-product__img" loading="lazy">
+          <div class="exit-product__info">
+            <p class="exit-product__name">TIBO 4-in-1 Titanium Cutting Board</p>
+            <p class="exit-product__tagline">Medical-grade titanium. Zero bacteria. Zero microplastics. FDA-compliant.</p>
+            <div class="exit-stars">
+              <span class="exit-stars__icons">★★★★★</span>
+              <span class="exit-stars__rating">4.9/5</span>
+              <span class="exit-stars__count">(2,847 verified reviews)</span>
+            </div>
+          </div>
+        </div>
+        <a href="https://www.gu-ecom.com/P5112QD/3195NB4/?uid=2901" class="btn exit-cta" target="_blank" rel="noopener nofollow">See Our Top Pick →</a>
+        <p class="exit-dismiss" id="exitDismiss">No thanks, I'll keep reading</p>
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
     <div class="container footer-inner">
       <p class="footer-copy">&copy; 2026 Kitchen Advisor. All rights reserved.</p>
@@ -174,6 +200,20 @@
     document.querySelectorAll('.nav-link').forEach(link => { link.addEventListener('click', () => { nav.classList.remove('open'); menuBtn.classList.remove('active'); }); });
     const header = document.querySelector('.site-header');
     window.addEventListener('scroll', () => { header.classList.toggle('scrolled', window.scrollY > 10); });
+
+    // Exit intent
+    const exitOverlay = document.getElementById('exitOverlay');
+    const exitClose = document.getElementById('exitClose');
+    const exitDismiss = document.getElementById('exitDismiss');
+    let exitShown = false;
+    function showExitPopup() { if (exitShown) return; exitShown = true; exitOverlay.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function hideExitPopup() { exitOverlay.classList.remove('active'); document.body.style.overflow = ''; }
+    document.addEventListener('mouseout', (e) => { if (e.clientY <= 0 && !exitShown) showExitPopup(); });
+    setTimeout(() => { if ('ontouchstart' in window && !exitShown) showExitPopup(); }, 45000);
+    exitClose.addEventListener('click', hideExitPopup);
+    exitDismiss.addEventListener('click', hideExitPopup);
+    exitOverlay.addEventListener('click', (e) => { if (e.target === exitOverlay) hideExitPopup(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hideExitPopup(); });
 
     // Affiliate click tracking
     document.addEventListener('click', function(e) {
